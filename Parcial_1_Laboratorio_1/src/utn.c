@@ -352,59 +352,51 @@ int static transformarMinusculaAMayuscula(char* direccionCaracter)
 	return retorno;
 }
 
-/// @brief
-///
-/// @pre
-/// @post
-/// @param direccionCaracter
-/// @return
-int static verificarSerLetra(char* direccionCaracter)
+int static transfomarAMayusculaPrimerLetraDeCadaPalabra(char* direccionPalabra)
 {
 	int retorno;
+	int banderaEspacio;
 
 	retorno=-1;
+	banderaEspacio=0;
 
-	if(direccionCaracter !=NULL)
+	if(direccionPalabra !=NULL)
 	{
-		retorno=1;
-		if(isalpha(*direccionCaracter) != 0 ||
-					*direccionCaracter == 'á' ||
-					*direccionCaracter == 'é' ||
-					*direccionCaracter == 'í' ||
-					*direccionCaracter == 'ó' ||
-					*direccionCaracter == 'ú' ||
-					*direccionCaracter == 'Á' ||
-					*direccionCaracter == 'É' ||
-					*direccionCaracter == 'Í' ||
-					*direccionCaracter == 'Ó' ||
-					*direccionCaracter == 'Ú' ||
-					*direccionCaracter == 'ñ' ||
-					*direccionCaracter == 'Ñ')
+		transformarMinusculaAMayuscula(direccionPalabra);
+		direccionPalabra++;
+
+		while(*direccionPalabra !='\0')
 		{
-			retorno=0;
+			if(isspace(*direccionPalabra))
+			{
+				banderaEspacio=1;
+			}
+
+			if(banderaEspacio && isalpha(*direccionPalabra))
+			{
+				transformarMinusculaAMayuscula(direccionPalabra);
+				banderaEspacio=0;
+			}
+
+			direccionPalabra++;
 		}
 	}
 
 	return retorno;
 }
 
-/// @brief
-///
-/// @pre
-/// @post
-/// @param direccionCaracter
-/// @return
+/*
 int static getLetra(char* direccionCaracter)
 {
 	int retorno;
-	int bufferLetra[1024];
+	char bufferLetra[1024];
 
 	retorno=-1;
 
 	if(direccionCaracter !=NULL)
 	{
 		retorno=1;
-		if(!(myGets(bufferLetra,sizeof(bufferLetra)) && !(verificarSerLetra(&bufferLetra))))
+		if(!(myGets(bufferLetra,sizeof(bufferLetra)) && !(verificarSerLetra(bufferLetra))))
 		{
 			*direccionCaracter = *bufferLetra;
 			retorno=0;
@@ -412,7 +404,7 @@ int static getLetra(char* direccionCaracter)
 	}
 	return retorno;
 }
-
+*/
 int utn_getIntRango(int* direccionInt, char* mensaje, char* mensajeError, int minimo, int maximo)
 {
 	int retorno;
@@ -423,7 +415,7 @@ int utn_getIntRango(int* direccionInt, char* mensaje, char* mensajeError, int mi
 	if(direccionInt!=NULL &&
 			mensaje!=NULL &&
 			mensajeError!=NULL &&
-			minimo<maximo)
+			minimo<=maximo)
 	{
 		retorno =1;
 
@@ -537,6 +529,7 @@ int utn_getNombreTamanioLimitado(char* direccionPalabra, char* mensaje, char* me
 			printf("%s", mensajeError);
 		}
 		retorno =0;
+		transfomarAMayusculaPrimerLetraDeCadaPalabra(bufferPalabra);
 		strncpy(direccionPalabra, bufferPalabra, longitudPalabra);
 	}
 	return retorno;
@@ -566,6 +559,7 @@ int utn_getNombreTamanioEspecifico(char* direccionPalabra, char* mensaje, char* 
 			printf("%s", mensajeError);
 		}
 		retorno =0;
+		transfomarAMayusculaPrimerLetraDeCadaPalabra(bufferPalabra);
 		strncpy(direccionPalabra, bufferPalabra, longitudPalabra);
 	}
 	return retorno;
@@ -634,7 +628,6 @@ int utn_getCadenaAlfanuericaTamanioEspecifico(char* direccionPalabra, char* mens
 int utn_trasnformarCadenaAMayuscula(char* direccionCadena)
 {
 	int retorno;
-	int i;
 
 	retorno=-1;
 
@@ -683,7 +676,7 @@ int utn_getLetraRango(char* direccionLetra, char* mensaje, char* mensajeError, c
 		retorno =1;
 
 		printf("%s", mensaje);
-		while(getInt(bufferLetra) || *bufferLetra < letraMinima || *bufferLetra > letraMaxima)
+		while(getNombre(bufferLetra) || *bufferLetra < letraMinima || *bufferLetra > letraMaxima || strnlen(bufferLetra, sizeof(bufferLetra)) != 1)
 		{
 			printf("%s", mensajeError);
 		}
@@ -692,3 +685,4 @@ int utn_getLetraRango(char* direccionLetra, char* mensaje, char* mensajeError, c
 	}
 	return retorno;
 }
+

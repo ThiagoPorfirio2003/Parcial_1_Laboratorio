@@ -17,3 +17,4 @@ typedef struct{
 
 
 #endif /* ESTRUCTURACENSISTA_H_ */
+int mostrarCensistas(eCensista* censistas, int cantidadCensistas);
