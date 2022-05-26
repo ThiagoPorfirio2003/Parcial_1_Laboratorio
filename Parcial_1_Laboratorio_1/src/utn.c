@@ -23,11 +23,10 @@ int static myGets(char* direccionCadenaCaracteres, int longitud)
 	int retorno;
 	char bufferString[1024];
 
-	retorno = -1;
+	retorno = 1;
 
 	if(direccionCadenaCaracteres != NULL && longitud > 0)
 	{
-		retorno =1;
 		fflush(stdin);
 		if(fgets(bufferString, sizeof(bufferString), stdin) != NULL)
 		{
@@ -55,7 +54,7 @@ int static myGets(char* direccionCadenaCaracteres, int longitud)
 int static verificarSerInt(char* cadenaDeCaracteres)
 {
 	int retorno;
-	retorno = -1;
+	retorno = 1;
 
 	if(cadenaDeCaracteres != NULL && *cadenaDeCaracteres != '0')
 	{
@@ -89,10 +88,9 @@ int static getInt(int* direccionInt)
 	int retorno;
 	char bufferInt[1024];
 
-	retorno =-1;
+	retorno =1;
 	if(direccionInt !=NULL)
 	{
-		retorno =1;
 		if(!(myGets(bufferInt, sizeof(bufferInt))) && !(verificarSerInt(bufferInt)))
 		{
 			*direccionInt = atoi(bufferInt);
@@ -115,7 +113,7 @@ int static verificarSerFloat(char* cadenaDeCaracteres)
 	int retorno;
 	int contadorPuntos;
 
-	retorno = -1;
+	retorno = 1;
 	contadorPuntos =0;
 
 	if(cadenaDeCaracteres != NULL)
@@ -157,10 +155,9 @@ int static getFloat(float* direccionFloat)
 	int retorno;
 	char bufferFloat[1024];
 
-	retorno =-1;
+	retorno =1;
 	if(direccionFloat !=NULL)
 	{
-		retorno =1;
 		if(!(myGets(bufferFloat, sizeof(bufferFloat))) && !(verificarSerFloat(bufferFloat)))
 		{
 			*direccionFloat = atof(bufferFloat);
@@ -181,7 +178,7 @@ int static verificarSerNombre(char* cadenaDeCaracteres)
 {
 	int retorno;
 
-	retorno=-1;
+	retorno=1;
 
 	if(cadenaDeCaracteres != NULL && *cadenaDeCaracteres !=' ')
 	{
@@ -227,12 +224,10 @@ int static getNombre(char* direccionPalabra)
 
 	sizeBuffer = sizeof(bufferPalabra);
 
-	retorno=-1;
+	retorno=1;
 
 	if(direccionPalabra !=NULL)
 	{
-		retorno=1;
-
 		if(!(myGets(bufferPalabra, sizeBuffer)) && !(verificarSerNombre(bufferPalabra)))
 		{
 			retorno=0;
@@ -257,7 +252,7 @@ int static verificarSerCadenaAlfanumerica(char* cadenaAlfanumerica)
 	banderaExistenciaNumero=0;
 	banderaExistenciaCaracter=0;
 
-	retorno=-1;
+	retorno=1;
 
 	if(cadenaAlfanumerica != NULL && *cadenaAlfanumerica !=' ')
 	{
@@ -317,11 +312,10 @@ int static getCadenaAlfanumerica(char* cadenaAlfanumerica)
 	int retorno;
 	char bufferChar[1024];
 
-	retorno =-1;
+	retorno =1;
 
 	if(cadenaAlfanumerica != NULL)
 	{
-		retorno=-1;
 		if(!(myGets(bufferChar, sizeof(bufferChar))) && !(verificarSerCadenaAlfanumerica(bufferChar)))
 		{
 			retorno =0;
@@ -331,38 +325,18 @@ int static getCadenaAlfanumerica(char* cadenaAlfanumerica)
 	return retorno;
 }
 
-/// @brief
-///
-/// @pre
-/// @post
-/// @param direccionCaracter
-/// @return
-int static transformarMinusculaAMayuscula(char* direccionCaracter)
-{
-	int retorno;
-	char caracter;
-
-	retorno =-1;
-	if(direccionCaracter !=NULL)
-	{
-		caracter = *direccionCaracter;
-		retorno =0;
-		*direccionCaracter = toupper(caracter);
-	}
-	return retorno;
-}
-
-int static transfomarAMayusculaPrimerLetraDeCadaPalabra(char* direccionPalabra)
+int transfomarAMayusculaPrimerLetraDeCadaPalabra(char* direccionPalabra)
 {
 	int retorno;
 	int banderaEspacio;
 
-	retorno=-1;
+	retorno=1;
 	banderaEspacio=0;
 
 	if(direccionPalabra !=NULL)
 	{
-		transformarMinusculaAMayuscula(direccionPalabra);
+		retorno =0;
+		*direccionPalabra = toupper(*direccionPalabra);
 		direccionPalabra++;
 
 		while(*direccionPalabra !='\0')
@@ -374,7 +348,7 @@ int static transfomarAMayusculaPrimerLetraDeCadaPalabra(char* direccionPalabra)
 
 			if(banderaEspacio && isalpha(*direccionPalabra))
 			{
-				transformarMinusculaAMayuscula(direccionPalabra);
+				*direccionPalabra = toupper(*direccionPalabra);
 				banderaEspacio=0;
 			}
 
@@ -385,39 +359,18 @@ int static transfomarAMayusculaPrimerLetraDeCadaPalabra(char* direccionPalabra)
 	return retorno;
 }
 
-/*
-int static getLetra(char* direccionCaracter)
-{
-	int retorno;
-	char bufferLetra[1024];
-
-	retorno=-1;
-
-	if(direccionCaracter !=NULL)
-	{
-		retorno=1;
-		if(!(myGets(bufferLetra,sizeof(bufferLetra)) && !(verificarSerLetra(bufferLetra))))
-		{
-			*direccionCaracter = *bufferLetra;
-			retorno=0;
-		}
-	}
-	return retorno;
-}
-*/
 int utn_getIntRango(int* direccionInt, char* mensaje, char* mensajeError, int minimo, int maximo)
 {
 	int retorno;
 	int bufferInt;
 
-	retorno=-1;
+	retorno=1;
 
 	if(direccionInt!=NULL &&
 			mensaje!=NULL &&
 			mensajeError!=NULL &&
 			minimo<=maximo)
 	{
-		retorno =1;
 
 		printf("%s", mensaje);
 		while(getInt(&bufferInt) || bufferInt < minimo || bufferInt > maximo)
@@ -435,65 +388,16 @@ int utn_getFloatRango(float* direccionFloat, char* mensaje, char* mensajeError, 
 	int retorno;
 	float bufferFloat;
 
-	retorno=-1;
+	retorno=1;
 
 	if(direccionFloat!=NULL &&
 			mensaje!=NULL &&
 			mensajeError!=NULL &&
-			minimo<maximo)
+			minimo<=maximo)
 	{
-		retorno =1;
 
 		printf("%s", mensaje);
 		while(getFloat(&bufferFloat) || bufferFloat < minimo || bufferFloat > maximo)
-		{
-			printf("%s", mensajeError);
-		}
-		*direccionFloat = bufferFloat;
-		retorno=0;
-	}
-	return retorno;
-}
-
-int utn_getIntEspecifico(int* direccionInt, char* mensaje, char* mensajeError, int numeroEspecifico)
-{
-	int retorno;
-	int bufferInt;
-
-	retorno=-1;
-
-	if(direccionInt!=NULL &&
-			mensaje!=NULL &&
-			mensajeError!=NULL)
-	{
-		retorno =1;
-
-		printf("%s", mensaje);
-		while(getInt(&bufferInt) || bufferInt != numeroEspecifico)
-		{
-			printf("%s", mensajeError);
-		}
-		*direccionInt = bufferInt;
-		retorno=0;
-	}
-	return retorno;
-}
-
-int utn_getFloatEspecifico(float* direccionFloat, char* mensaje, char* mensajeError, float numeroEspecifico)
-{
-	int retorno;
-	float bufferFloat;
-
-	retorno=-1;
-
-	if(direccionFloat!=NULL &&
-			mensaje!=NULL &&
-			mensajeError!=NULL)
-	{
-		retorno =1;
-
-		printf("%s", mensaje);
-		while(getFloat(&bufferFloat) || bufferFloat != numeroEspecifico)
 		{
 			printf("%s", mensajeError);
 		}
@@ -510,51 +414,20 @@ int utn_getNombreTamanioLimitado(char* direccionPalabra, char* mensaje, char* me
 	int tamanioBuffer;
 
 	tamanioBuffer = sizeof(bufferPalabra);
-	retorno =-1;
+	retorno =1;
 
 	if(direccionPalabra != NULL &&
 			mensaje != NULL &&
 			mensajeError !=NULL &&
 			cantidadMinimaCaracteres > 0 &&
-			cantidadMaximaCaracteres > cantidadMinimaCaracteres &&
+			cantidadMaximaCaracteres >= cantidadMinimaCaracteres &&
 			longitudPalabra >0 &&
 			cantidadMaximaCaracteres < longitudPalabra)
 	{
-		retorno =1;
 		printf("%s", mensaje);
 		while(getNombre(bufferPalabra) ||
 				strnlen(bufferPalabra, tamanioBuffer) < cantidadMinimaCaracteres ||
 				strnlen(bufferPalabra, tamanioBuffer) > cantidadMaximaCaracteres)
-		{
-			printf("%s", mensajeError);
-		}
-		retorno =0;
-		transfomarAMayusculaPrimerLetraDeCadaPalabra(bufferPalabra);
-		strncpy(direccionPalabra, bufferPalabra, longitudPalabra);
-	}
-	return retorno;
-}
-
-int utn_getNombreTamanioEspecifico(char* direccionPalabra, char* mensaje, char* mensajeError, int cantidadCaracteres, int longitudPalabra)
-{
-	int retorno;
-	char bufferPalabra[1024];
-	int tamanioBuffer;
-
-	tamanioBuffer = sizeof(bufferPalabra);
-	retorno =-1;
-
-	if(direccionPalabra != NULL &&
-			mensaje != NULL &&
-			mensajeError !=NULL &&
-			cantidadCaracteres > 0 &&
-			longitudPalabra >0 &&
-			cantidadCaracteres < longitudPalabra)
-	{
-		retorno =1;
-		printf("%s", mensaje);
-		while(getNombre(bufferPalabra) ||
-				strnlen(bufferPalabra, tamanioBuffer) != cantidadCaracteres)
 		{
 			printf("%s", mensajeError);
 		}
@@ -572,7 +445,7 @@ int utn_getCadenaAlfanuericaTamanioLimitado(char* direccionPalabra, char* mensaj
 	int tamanioBuffer;
 
 	tamanioBuffer = sizeof(bufferPalabra);
-	retorno =-1;
+	retorno =1;
 
 	if(direccionPalabra != NULL &&
 			mensaje != NULL &&
@@ -582,7 +455,6 @@ int utn_getCadenaAlfanuericaTamanioLimitado(char* direccionPalabra, char* mensaj
 			longitudPalabra >0 &&
 			cantidadMaximaCaracteres < longitudPalabra)
 	{
-		retorno =1;
 		printf("%s", mensaje);
 		while(getCadenaAlfanumerica(bufferPalabra) ||
 				strnlen(bufferPalabra, tamanioBuffer) < cantidadMinimaCaracteres ||
@@ -596,40 +468,11 @@ int utn_getCadenaAlfanuericaTamanioLimitado(char* direccionPalabra, char* mensaj
 	return retorno;
 }
 
-int utn_getCadenaAlfanuericaTamanioEspecifico(char* direccionPalabra, char* mensaje, char* mensajeError, int cantidadCaracteres, int longitudPalabra)
-{
-	int retorno;
-	char bufferPalabra[1024];
-	int tamanioBuffer;
-
-	tamanioBuffer = sizeof(bufferPalabra);
-	retorno =-1;
-
-	if(direccionPalabra != NULL &&
-			mensaje != NULL &&
-			mensajeError !=NULL &&
-			cantidadCaracteres > 0 &&
-			longitudPalabra >0 &&
-			cantidadCaracteres < longitudPalabra)
-	{
-		retorno =1;
-		printf("%s", mensaje);
-		while(getCadenaAlfanumerica(bufferPalabra) ||
-				strnlen(bufferPalabra, tamanioBuffer) != cantidadCaracteres)
-		{
-			printf("%s", mensajeError);
-		}
-		retorno =0;
-		strncpy(direccionPalabra, bufferPalabra, longitudPalabra);
-	}
-	return retorno;
-}
-
 int utn_trasnformarCadenaAMayuscula(char* direccionCadena)
 {
 	int retorno;
 
-	retorno=-1;
+	retorno=1;
 
 	if(direccionCadena!=NULL)
 	{
@@ -643,19 +486,10 @@ int utn_trasnformarCadenaAMayuscula(char* direccionCadena)
 					*direccionCadena == 'ú' ||
 					*direccionCadena == 'ñ')
 			{
-				transformarMinusculaAMayuscula(direccionCadena);
+				*direccionCadena = toupper(*direccionCadena);
 			}
 			direccionCadena++;
 		}while(*direccionCadena != '\0');
-/*
-		for(i=0;i<cantidadCaracteres;i++)
-		{
-			if(isalpha(direccionCadena[i]) !=0 || direccionCadena[i] == 'á' || direccionCadena[i] == 'é' || direccionCadena[i] == 'í' || direccionCadena[i] == 'ó' || direccionCadena[i] == 'ú' || direccionCadena[i] == 'ñ')
-			{
-				transformarMinusculaAMayuscula(&direccionCadena[i]);
-			}
-			retorno= 0;
-		}*/
 	}
 
 	return retorno;
@@ -666,14 +500,14 @@ int utn_getLetraRango(char* direccionLetra, char* mensaje, char* mensajeError, c
 	int retorno;
 	char bufferLetra[1024];
 
-	retorno=-1;
+	retorno=1;
 
 	if(direccionLetra!=NULL &&
 			mensaje!=NULL &&
 			mensajeError!=NULL &&
-			letraMinima<letraMaxima)
+
+			letraMinima<=letraMaxima)
 	{
-		retorno =1;
 
 		printf("%s", mensaje);
 		while(getNombre(bufferLetra) || *bufferLetra < letraMinima || *bufferLetra > letraMaxima || strnlen(bufferLetra, sizeof(bufferLetra)) != 1)

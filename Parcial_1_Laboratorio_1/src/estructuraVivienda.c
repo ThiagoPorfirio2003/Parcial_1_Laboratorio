@@ -16,7 +16,7 @@ int inicializarViviendas(eVivienda* viviendas, int len)
 	int retorno;
 	int i;
 
-	retorno = -1;
+	retorno = 1;
 
 	if(viviendas !=NULL && len > 0)
 	{
@@ -35,7 +35,7 @@ int agregarVivienda(eVivienda* vivienda, int len, int id, char* calle, int canti
 	int retorno;
 	int i;
 
-	retorno =-1;
+	retorno =1;
 
 	if(vivienda !=NULL && len > 0 && calle != NULL)
 	{
@@ -70,13 +70,10 @@ int encontrarViviendaPorId(eVivienda* vivienda, int len,int id)
 	{
 		for(i=0; i<len; i++)
 		{
-			if(vivienda->isEmpty ==0)
+			if(vivienda->isEmpty ==0 && vivienda->id == id)
 			{
-				if(vivienda->id == id)
-				{
-					retorno = i;
-					break;
-				}
+				retorno = i;
+				break;
 			}
 			vivienda++;
 		}
@@ -91,7 +88,7 @@ int modificarViviendaPorId(eVivienda* vivienda, int posicionVivienda, int opcion
 	int retorno;
 	int limiteCaracteres;
 
-	retorno =-1;
+	retorno =1;
 
 	if(vivienda != NULL && posicionVivienda>-1)
 	{
@@ -125,7 +122,7 @@ int removerVivienda(eVivienda* vivienda, int len, int id)
 	int retorno;
 	int i;
 
-	retorno = -1;
+	retorno = 1;
 
 	if(vivienda !=NULL && len > 0 && id>-1)
 	{
@@ -133,14 +130,11 @@ int removerVivienda(eVivienda* vivienda, int len, int id)
 		{
 			if(vivienda->id == id)
 			{
-				retorno =0;
-				if(vivienda->isEmpty==1)
-				{
-					retorno =1;
-				}
-				else
+
+				if(vivienda->isEmpty==0)
 				{
 					vivienda->isEmpty = 1;
+					retorno =0;
 				}
 				break;
 			}
@@ -164,9 +158,10 @@ int ordenarViviendas(eVivienda* viviendas, int len)
 	limiteDeDireccion = viviendas+len-1;
 	activarCambio=0;
 
-	retorno = -1;
+	retorno = 1;
 	if(viviendas!= NULL && len >0)
 	{
+		retorno=0;
 		do{
 			punteroAuxiliarVivienda = viviendas;
 			flagSwap = 0;
@@ -210,13 +205,13 @@ int mostrarViviendas(eVivienda* viviendas, int viviendasCensadas)
 	char tipoDeVivienda[15];
 	eVivienda* limitePunteroViviendas;
 
-	retorno = -1;
+	retorno = 1;
 
 	if(viviendas !=NULL && viviendasCensadas >-1)
 	{
 		limitePunteroViviendas= viviendas +viviendasCensadas;
 
-		printf("\n_____________________________________Lista de Viviendas____________________________________\n");
+		printf("\n_____________________________________Lista de Viviendas___________________________________\n");
 		printf("|%*s|%*s|%*s|%*s|%*s|%*s|\n",-5, "ID", -25, "Calle", -10, "Inquilinos", -12, "Habitaciones", -16, "Tipo de vivienda", -15,"Legajo Censista");
 		printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
 

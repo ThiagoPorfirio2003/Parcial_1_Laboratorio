@@ -112,7 +112,7 @@ int main(void) {
 						}
 						else
 						{
-							printf("Ha ocurrido un error. Lo mas probable es que la vivienda se haya eliminado del sistema\n");
+							printf("\nHa ocurrido un error. Lo mas probable es que la vivienda se haya eliminado del sistema\n");
 						}
 					}
 					else

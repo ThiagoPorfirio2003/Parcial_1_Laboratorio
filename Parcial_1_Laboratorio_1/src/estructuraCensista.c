@@ -6,20 +6,8 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
-#include <string.h>
-#include "estructuraVivienda.h"
-#include "utn.h"
 #include "estructuraCensista.h"
 
-/*
-typedef struct{
-	int legajoCensista;
-	char nombre[50];
-	int edad;
-	char telefono[12];
-} eCensista;
-*/
 int mostrarCensistas(eCensista* censistas, int cantidadCensistas)
 {
 	int retorno;
@@ -31,7 +19,7 @@ int mostrarCensistas(eCensista* censistas, int cantidadCensistas)
 	{
 		limitePunteroCensistas= censistas +cantidadCensistas;
 
-		printf("\n_____________________________Lista de Censistas____________________________\n");
+		printf("\n_____________________________Lista de Censistas_____________________________\n");
 		printf("|%*s|%*s|%*s|%*s|\n",-6, "Legajo", -49, "Nombre", -4, "Edad", -12, "Telefono");
 		printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
 
