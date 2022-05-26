@@ -30,7 +30,7 @@ int inicializarViviendas(eVivienda* viviendas, int len)
 	return retorno;
 }
 
-int agregarVivienda(eVivienda* vivienda, int len, int id, char* calle, int alturaCalle, int cantidadPersonas, int cantidadHabitaciones, int tipoVivienda, int legajoCensista)
+int agregarVivienda(eVivienda* vivienda, int len, int id, char* calle, int cantidadPersonas, int cantidadHabitaciones, int tipoVivienda, int legajoCensista)
 {
 	int retorno;
 	int i;
@@ -49,7 +49,6 @@ int agregarVivienda(eVivienda* vivienda, int len, int id, char* calle, int altur
 				vivienda->cantidadHabitaciones= cantidadHabitaciones;
 				vivienda->tipoVivienda= tipoVivienda;
 				vivienda->legajoCensista=legajoCensista;
-				vivienda->alturaCalle = alturaCalle;
 				vivienda->isEmpty = 0;
 				retorno =0;
 				break;
@@ -86,9 +85,8 @@ int encontrarViviendaPorId(eVivienda* vivienda, int len,int id)
 }
 
 int modificarViviendaPorId(eVivienda* vivienda, int posicionVivienda, int opcion, int cantidadMinimaLetrasCalleNombre,
-		int cantidadMaximaLetrasCalleNombre,int alturaMinimaCalle, int alturaMaximaCalle, int cantidadMinimaPersonasPorCasa,
-		int cantidadMaximaPersonasPorCasa, int cantidadMinimaHabitaciones, int cantidadMaximaHabitaciones, int minimaOpcionTipoVivienda,
-		int maximaOpcionTipoVivienda)
+		int cantidadMaximaLetrasCalleNombre, int cantidadMinimaPersonasPorCasa, int cantidadMaximaPersonasPorCasa, int cantidadMinimaHabitaciones,
+		int cantidadMaximaHabitaciones, int minimaOpcionTipoVivienda, int maximaOpcionTipoVivienda)
 {
 	int retorno;
 	int limiteCaracteres;
@@ -103,23 +101,19 @@ int modificarViviendaPorId(eVivienda* vivienda, int posicionVivienda, int opcion
 		switch(opcion)
 		{
 			case 1:
-				utn_getNombreTamanioLimitado(vivienda->calle, "\nIngresa la calle de la vivienda: ", "Dato invalido. Ingresa la calle de la vivienda: ", cantidadMinimaLetrasCalleNombre, cantidadMaximaLetrasCalleNombre, limiteCaracteres);
+				utn_getNombreTamanioLimitado(vivienda->calle, "\nIngresa la nueva calle de la vivienda: ", "Dato invalido. Ingresa la nueva calle de la vivienda: ", cantidadMinimaLetrasCalleNombre, cantidadMaximaLetrasCalleNombre, limiteCaracteres);
 				break;
 
 			case 2:
-				utn_getIntRango(&vivienda->alturaCalle, "\nIngresa la altura de la calle de la casa: ", "Dato invalido. Ingresa la altura de la calle de la vivienda: ", alturaMinimaCalle, alturaMaximaCalle);
+				utn_getIntRango(&vivienda->cantidadPersonas, "\nIngrese la nueva cantidad de personas que vivien en la casa: ", "Dato invalido. Ingrese la nueva cantidad de personas que vivien en la casa: ", cantidadMinimaPersonasPorCasa, cantidadMaximaPersonasPorCasa);
 				break;
 
 			case 3:
-				utn_getIntRango(&vivienda->cantidadPersonas, "\nIngrese la cantidad de personas que vivien en la casa: ", "Dato invalido. Ingrese la cantidad de personas que vivien en la casa: ", cantidadMinimaPersonasPorCasa, cantidadMaximaPersonasPorCasa);
-				break;
-
-			case 4:
-				utn_getIntRango(&vivienda->cantidadHabitaciones, "\nIngrese la cantidad de habitaciones de la casa: ", "Dato invalido. Ingrese la cantidad de habitaciones de la casa: ", cantidadMinimaHabitaciones, cantidadMaximaHabitaciones);
+				utn_getIntRango(&vivienda->cantidadHabitaciones, "\nIngrese la nueva cantidad de habitaciones de la casa: ", "Dato invalido. Ingrese la nueva cantidad de habitaciones de la casa: ", cantidadMinimaHabitaciones, cantidadMaximaHabitaciones);
 				break;
 
 			default:
-				utn_getIntRango(&vivienda->tipoVivienda, "\nTipo de vivienda: \n1-Casa\n2-Departamento\n3-Casilla\n4-Rancho\nEscribir el numero correspondiente: ", "Dato invalido. Tipo de vivienda: \n1-Casa\n2-Departamento\n3-Casilla\n4-Rancho\nEscribir el numero correspondiente:  ", minimaOpcionTipoVivienda, maximaOpcionTipoVivienda);
+				utn_getIntRango(&vivienda->tipoVivienda, "\nTipo de vivienda: \n1-Casa\n2-Departamento\n3-Casilla\n4-Rancho\nEscribir el nuevo numero correspondiente: ", "Dato invalido. Escribir el nuevo numero correspondiente:  ", minimaOpcionTipoVivienda, maximaOpcionTipoVivienda);
 				break;
 			}
 		}
@@ -139,8 +133,15 @@ int removerVivienda(eVivienda* vivienda, int len, int id)
 		{
 			if(vivienda->id == id)
 			{
-				vivienda->isEmpty = 1;
 				retorno =0;
+				if(vivienda->isEmpty==1)
+				{
+					retorno =1;
+				}
+				else
+				{
+					vivienda->isEmpty = 1;
+				}
 				break;
 			}
 			vivienda++;
@@ -172,16 +173,16 @@ int ordenarViviendas(eVivienda* viviendas, int len)
 			for(punteroVivienda = viviendas; punteroVivienda < limiteDeDireccion; punteroVivienda++)
 			{
 				punteroAuxiliarVivienda++;
-				if(strcmp(punteroVivienda->calle, punteroAuxiliarVivienda->calle) != 0 )
+				if(stricmp(punteroVivienda->calle, punteroAuxiliarVivienda->calle) != 0 )
 				{
-					if(strcmp(punteroVivienda->calle, punteroAuxiliarVivienda->calle) == 1)
+					if(stricmp(punteroVivienda->calle, punteroAuxiliarVivienda->calle) == 1)
 					{
 						activarCambio =1;
 					}
 				}
 				else
 				{
-					if(punteroVivienda->alturaCalle > punteroAuxiliarVivienda->alturaCalle)
+					if(punteroVivienda->cantidadPersonas > punteroAuxiliarVivienda->cantidadPersonas)
 					{
 						activarCambio=1;
 					}
@@ -215,9 +216,9 @@ int mostrarViviendas(eVivienda* viviendas, int viviendasCensadas)
 	{
 		limitePunteroViviendas= viviendas +viviendasCensadas;
 
-		printf("\n_______________________________________Lista de Viviendas________________________________________\n");
-		printf("|%*s|%*s|%*s|%*s|%*s|%*s|%*s|\n",-5, "ID", -25, "Calle", -6, "Altura", -10, "Inquilinos", -12, "Habitaciones", -16, "Tipo de vivienda", -15,"Legajo Censista");
-		printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+		printf("\n_____________________________________Lista de Viviendas____________________________________\n");
+		printf("|%*s|%*s|%*s|%*s|%*s|%*s|\n",-5, "ID", -25, "Calle", -10, "Inquilinos", -12, "Habitaciones", -16, "Tipo de vivienda", -15,"Legajo Censista");
+		printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
 
 		for(;viviendas<limitePunteroViviendas;viviendas++)
 		{
@@ -239,10 +240,10 @@ int mostrarViviendas(eVivienda* viviendas, int viviendasCensadas)
 
 				}
 
-				printf("|%*d|%*s|%*d|%*d|%*d|%*s|%*d|\n", -5, viviendas->id, -25, viviendas->calle, -6, viviendas->alturaCalle, -10, viviendas->cantidadPersonas, -12, viviendas->cantidadHabitaciones, -16, tipoDeVivienda, -15, viviendas->legajoCensista);
+				printf("|%*d|%*s|%*d|%*d|%*s|%*d|\n", -5, viviendas->id, -25, viviendas->calle, -10, viviendas->cantidadPersonas, -12, viviendas->cantidadHabitaciones, -16, tipoDeVivienda, -15, viviendas->legajoCensista);
 			}
 		}
-		printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n");
+		printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
 		retorno=0;
 	}
 	return retorno;

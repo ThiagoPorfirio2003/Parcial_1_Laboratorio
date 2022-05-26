@@ -57,7 +57,7 @@ int static verificarSerInt(char* cadenaDeCaracteres)
 	int retorno;
 	retorno = -1;
 
-	if(cadenaDeCaracteres != NULL)
+	if(cadenaDeCaracteres != NULL && *cadenaDeCaracteres != '0')
 	{
 		retorno=0;
 		if(*cadenaDeCaracteres == '-' ||
