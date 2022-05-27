@@ -153,7 +153,8 @@ int main(void) {
 					break;
 
 				case 'E':
-						mostrarCensistas(censistas, CANTIDAD_CENSISTAS);
+					ordenarViviendas(viviendas, VIVIENDAS_A_CENSAR);
+					mostrarCensistasConCantidadDeViviendas(censistas, CANTIDAD_CENSISTAS, viviendas, VIVIENDAS_A_CENSAR);
 					break;
 
 				default:

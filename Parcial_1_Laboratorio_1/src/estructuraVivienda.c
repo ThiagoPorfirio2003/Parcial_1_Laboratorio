@@ -64,7 +64,7 @@ int encontrarViviendaPorId(eVivienda* vivienda, int len,int id)
 	int retorno;
 	int i;
 
-	retorno =-1;
+	retorno =1;
 
 	if(vivienda !=NULL && len>0)
 	{
@@ -207,7 +207,7 @@ int mostrarViviendas(eVivienda* viviendas, int viviendasCensadas)
 
 	retorno = 1;
 
-	if(viviendas !=NULL && viviendasCensadas >-1)
+	if(viviendas !=NULL && viviendasCensadas >0)
 	{
 		limitePunteroViviendas= viviendas +viviendasCensadas;
 
